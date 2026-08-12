@@ -10,7 +10,6 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleCooldown = useRef(false);
-
   const handleToggle = () => {
     if (toggleCooldown.current) return;
     toggleCooldown.current = true;
@@ -40,17 +39,19 @@ export function Navbar() {
         aria-label="Main navigation"
         className={cn(
           "fixed top-0 right-0 left-0 z-[9998] px-0 py-4 transition-all duration-300",
-          (scrolled || mobileOpen) && "border-b border-[var(--color-border)] bg-[rgba(6,6,6,0.85)] backdrop-blur-[20px]",
+          (scrolled || mobileOpen) && "border-b border-[var(--border-subtle)] bg-[var(--bg-primary)] backdrop-blur-[20px]",
         )}
       >
         <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 sm:px-8">
-          <Link
-            href="/"
-            className="font-display flex items-center gap-2 text-[20px] sm:text-[22px] font-bold tracking-tight text-[var(--color-white)] no-underline"
-            aria-label={`${siteConfig.name} home`}
-          >
-            {siteConfig.shortName}
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/"
+              className="font-display flex items-center gap-2 text-[20px] sm:text-[22px] font-bold tracking-tight text-[var(--text-primary)] no-underline"
+              aria-label={`${siteConfig.name} home`}
+            >
+              Vishv <span className="text-[#E63946]">Technologies</span>
+            </Link>
+          </div>
 
           {/* Desktop nav */}
           <ul className="hidden list-none items-center gap-8 md:flex" role="list">
@@ -58,16 +59,17 @@ export function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm font-medium tracking-wide text-[var(--color-muted)] no-underline transition-colors hover:text-[var(--color-white)]"
+                  className="text-sm font-medium tracking-wide text-[var(--text-secondary)] no-underline transition-colors hover:text-[var(--text-primary)] relative group"
                 >
                   {link.label}
+                  <span className="absolute -bottom-1 left-1/2 w-0 h-1 bg-[var(--accent)] transition-all group-hover:w-1 group-hover:-translate-x-1/2 rounded-full"></span>
                 </Link>
               </li>
             ))}
           </ul>
 
-          <div className="hidden md:block">
-            <Link href="/contact" className="btn-primary !px-[22px] !py-2.5 text-sm">
+          <div className="hidden md:flex items-center gap-6">
+            <Link href="/contact" className="rounded-full bg-[var(--accent)] px-5 py-2 text-[13px] font-mono font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[var(--accent-hover)] no-underline">
               Get Started
             </Link>
           </div>
@@ -75,27 +77,27 @@ export function Navbar() {
           {/* Hamburger button */}
           <button
             type="button"
-            className="relative flex h-10 w-10 flex-col items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] md:hidden cursor-pointer"
+            className="relative flex h-10 w-10 flex-col items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] md:hidden cursor-pointer"
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             onClick={handleToggle}
           >
             <span
-              className="absolute block h-[2px] w-5 rounded-full bg-[var(--color-white)] transition-all duration-300"
+              className="absolute block h-[2px] w-5 rounded-full bg-[var(--text-primary)] transition-all duration-300"
               style={{
                 transform: mobileOpen ? "rotate(45deg)" : "translateY(-6px)",
               }}
             />
             <span
-              className="absolute block h-[2px] w-5 rounded-full bg-[var(--color-white)] transition-all duration-300"
+              className="absolute block h-[2px] w-5 rounded-full bg-[var(--text-primary)] transition-all duration-300"
               style={{
                 opacity: mobileOpen ? 0 : 1,
                 transform: mobileOpen ? "scaleX(0)" : "scaleX(1)",
               }}
             />
             <span
-              className="absolute block h-[2px] w-5 rounded-full bg-[var(--color-white)] transition-all duration-300"
+              className="absolute block h-[2px] w-5 rounded-full bg-[var(--text-primary)] transition-all duration-300"
               style={{
                 transform: mobileOpen ? "rotate(-45deg)" : "translateY(6px)",
               }}
@@ -124,7 +126,7 @@ export function Navbar() {
         <div
           className="absolute inset-0"
           style={{
-            background: "rgba(6, 6, 6, 0.97)",
+            background: "rgba(10, 10, 11, 0.97)",
             backdropFilter: "blur(24px)",
             WebkitBackdropFilter: "blur(24px)",
           }}

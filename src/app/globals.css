@@ -1,24 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Color palette (6 tokens, no purple) ── */
-  --color-black: #060606;
-  --color-surface: #0e0e10;
-  --color-surface2: #141418;
-  --color-white: #f0f0f0;
-  --color-muted: #7a7a80;
-  --color-subtle: #4a4a52;
-  --color-accent: #00B4D8;
-  --color-accent-dim: rgba(0, 180, 216, 0.12);
-  --color-border: #1a1a1e;
-  --color-border-hover: #2a2a30;
+  /* ── Color palette (Dark Tech V2 Theme) ── */
+  --bg-primary: #0A0A0B;
+  --bg-secondary: #141416;
+  --bg-surface: #141416;
+  /* reusing bg-raised */
+  --bg-raised: #141416;
+  --border-subtle: #242426;
+
+  --text-primary: #F5F5F5;
+  --text-secondary: #9B9BA1;
+  /* mapping --text-body here */
+  --text-dim: #5A5A5E;
+  --text-tertiary: #5A5A5E;
+
+  --accent: #E63946;
+  /* --accent-blue */
+  --accent-hover: #4B6BFF;
+  --accent-muted: rgba(59, 91, 255, 0.12);
+
+  --accent-orange: #FF5A36;
 
   /* ── Typography ── */
   --font-display: var(--font-geist-sans), "Geist", system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
 }
 
 @layer base {
+
   *,
   *::before,
   *::after {
@@ -44,8 +55,8 @@
   }
 
   body {
-    background: var(--color-black);
-    color: var(--color-white);
+    background: var(--bg-primary);
+    color: var(--text-primary);
     font-family: var(--font-body);
     font-size: 16px;
     line-height: 1.65;
@@ -56,13 +67,13 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
 
   ::selection {
-    background: rgba(0, 180, 216, 0.3);
-    color: white;
+    background: var(--accent-muted);
+    color: var(--text-primary);
   }
 
   img {
@@ -72,18 +83,19 @@
 }
 
 @layer components {
+
   /* ── Buttons — solid, no gradients ── */
   .btn-primary {
-    background: var(--color-accent);
-    color: #060606;
-    padding: 0.8125rem 2rem;
-    border-radius: 4px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
     font-size: 0.875rem;
     font-weight: 600;
     font-family: var(--font-display);
     letter-spacing: 0.01em;
     text-decoration: none;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    transition: background 0.15s ease, transform 0.15s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -93,9 +105,11 @@
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: #00c8ef;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 24px rgba(0, 180, 216, 0.2);
+    background: var(--accent-hover);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: scale(0.98);
   }
 
   .btn-primary:disabled {
@@ -105,71 +119,71 @@
 
   .btn-secondary {
     background: transparent;
-    color: var(--color-white);
-    padding: 0.8125rem 2rem;
-    border-radius: 4px;
+    color: var(--text-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
     font-size: 0.875rem;
     font-weight: 600;
     font-family: var(--font-display);
     letter-spacing: 0.01em;
     text-decoration: none;
-    border: 1px solid var(--color-border);
-    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    border: 1px solid var(--border-subtle);
+    transition: border-color 0.15s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
   }
 
   .btn-secondary:hover {
-    border-color: var(--color-border-hover);
-    background: rgba(255, 255, 255, 0.03);
-    transform: translateY(-1px);
+    border-color: var(--accent);
   }
 
   /* ── Section typography ── */
   .section-eyebrow {
     font-family: var(--font-display);
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: 1.25rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
   }
 
   .section-title {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
     font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1.08;
-    margin-bottom: 1.5rem;
-    color: var(--color-white);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
   }
 
   .section-desc {
-    font-size: 1.0625rem;
-    color: var(--color-muted);
-    max-width: 38rem;
-    line-height: 1.7;
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 42rem;
+    line-height: 1.6;
   }
 
   /* ── Card — solid surface, no glassmorphism ── */
   .card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
-    transition: border-color 0.25s, transform 0.25s;
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
 
   .card:hover {
-    border-color: var(--color-border-hover);
+    border-color: rgba(62, 214, 196, 0.4);
+    /* Accent color at low opacity */
+    transform: translateY(2px);
   }
 
   /* ── Section divider — clean 1px line ── */
   .section-rule {
     height: 1px;
-    background: var(--color-border);
+    background: var(--border-subtle);
     border: none;
     margin: 0;
   }
@@ -188,12 +202,12 @@
 
   /* ── Form inputs ── */
   .form-input {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    padding: 0.875rem 1.125rem;
-    color: var(--color-white);
-    font-size: 0.9375rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    font-size: 1rem;
     font-family: var(--font-body);
     transition: border-color 0.2s, box-shadow 0.2s;
     outline: none;
@@ -201,12 +215,12 @@
   }
 
   .form-input:focus {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(62, 214, 196, 0.12);
   }
 
   .form-input::placeholder {
-    color: var(--color-subtle);
+    color: var(--text-tertiary);
   }
 
   .form-input[aria-invalid="true"] {
@@ -235,6 +249,7 @@
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -250,11 +265,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    background: var(--color-accent-dim);
-    color: var(--color-accent);
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background: var(--accent-muted);
+    color: var(--accent);
     flex-shrink: 0;
   }
 }

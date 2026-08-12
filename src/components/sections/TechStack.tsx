@@ -1,4 +1,5 @@
 import { techStack } from "@/config/site";
+import { WayfindingRow } from "@/components/ui/WayfindingRow";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 
 export function TechStack() {
@@ -9,10 +10,10 @@ export function TechStack() {
     >
       <div className="mx-auto max-w-[1200px]">
         <RevealOnScroll>
-          <div className="border-t border-b border-[var(--color-border)] py-10">
+          <div className="border-t border-b border-[var(--border-subtle)] py-10">
             <p
               id="tech-heading"
-              className="mb-6 text-center text-[11px] font-semibold tracking-[0.2em] uppercase text-[var(--color-subtle)]"
+              className="mb-6 text-center text-[11px] font-semibold tracking-[0.2em] uppercase text-[var(--text-tertiary)]"
               style={{ fontFamily: "var(--font-display)" }}
             >
               Technologies we work with
@@ -26,7 +27,7 @@ export function TechStack() {
                 <span
                   key={tech}
                   role="listitem"
-                  className="text-sm font-medium text-[var(--color-subtle)] transition-colors hover:text-[var(--color-white)]"
+                  className="text-sm font-medium text-[var(--text-tertiary)] transition-colors hover:text-[var(--text-primary)]"
                 >
                   {tech}
                 </span>
@@ -34,6 +35,9 @@ export function TechStack() {
             </div>
           </div>
         </RevealOnScroll>
+      </div>
+      <div className="mt-20">
+        <WayfindingRow nextSectionName="COMMUNITY" nextSectionLink="/#community" supportLinkName="EDUCATION" />
       </div>
     </section>
   );

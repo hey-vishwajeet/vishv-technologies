@@ -18,13 +18,13 @@ export function ContactSection() {
               <br />
               extraordinary
             </h2>
-            <p className="mt-4 mb-10 text-[15px] leading-relaxed text-[var(--color-muted)] max-w-[400px]">
+            <p className="mt-4 mb-10 text-[16px] leading-relaxed text-[var(--text-secondary)] max-w-[400px]">
               Ready to start your next project? Drop us a message with the
               details, and our team will get back to you within 24 hours to
               schedule a discovery call.
             </p>
-            
-            <div className="flex flex-col gap-4 text-sm text-[var(--color-muted)]">
+
+            <div className="flex flex-col gap-4 text-[16px] text-[var(--text-secondary)]">
               <div className="flex items-center gap-3">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
                 vishvtechnologies.info@gmail.com
@@ -38,7 +38,7 @@ export function ContactSection() {
 
           {/* Right: Contact Form */}
           <RevealOnScroll>
-            <div className="card p-8 rounded-lg">
+            <div>
               <ContactForm />
             </div>
           </RevealOnScroll>

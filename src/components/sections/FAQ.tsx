@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { faqItems } from "@/config/site";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { WayfindingRow } from "@/components/ui/WayfindingRow";
 import { cn } from "@/lib/utils";
 
 export function FAQ() {
@@ -22,7 +23,7 @@ export function FAQ() {
           </h2>
         </RevealOnScroll>
 
-        <div className="mt-12 flex flex-col gap-3">
+        <div className="mt-12 flex flex-col">
           {faqItems.map((item, index) => {
             const isOpen = openIndex === index;
             const panelId = `faq-panel-${index}`;
@@ -30,18 +31,18 @@ export function FAQ() {
 
             return (
               <RevealOnScroll key={item.question}>
-                <div className="card overflow-hidden border border-[var(--color-border)]">
+                <div className={`overflow-hidden ${index !== 0 ? 'border-t' : ''} border-[var(--border-subtle)]`}>
                   <h3>
                     <button
                       type="button"
                       id={buttonId}
-                      className="flex w-full items-center justify-between px-6 py-5 text-left text-base font-semibold text-[var(--color-white)] transition-colors hover:text-[var(--color-accent)] cursor-pointer bg-transparent border-none"
+                      className="flex w-full items-center justify-between py-6 text-left text-[18px] font-semibold text-[var(--text-primary)] transition-colors hover:text-[var(--accent)] cursor-pointer bg-transparent border-none"
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                       onClick={() => setOpenIndex(isOpen ? null : index)}
                     >
                       {item.question}
-                      <span aria-hidden="true" className="ml-4 text-xl text-[var(--color-muted)]">
+                      <span aria-hidden="true" className="ml-4 text-2xl font-light text-[var(--accent)]">
                         {isOpen ? "−" : "+"}
                       </span>
                     </button>
@@ -51,8 +52,8 @@ export function FAQ() {
                     role="region"
                     aria-labelledby={buttonId}
                     className={cn(
-                      "overflow-hidden px-6 text-[15px] leading-relaxed text-[var(--color-muted)] transition-all",
-                      isOpen ? "max-h-48 pb-6" : "max-h-0",
+                      "overflow-hidden text-[16px] leading-relaxed text-[var(--text-secondary)] transition-all duration-200 ease-in-out",
+                      isOpen ? "max-h-60 pb-6 opacity-100" : "max-h-0 opacity-0",
                     )}
                   >
                     {item.answer}
@@ -62,6 +63,9 @@ export function FAQ() {
             );
           })}
         </div>
+      </div>
+      <div className="mt-20">
+        <WayfindingRow nextSectionName="CONTACT" nextSectionLink="/#contact" supportLinkName="LET'S TALK" />
       </div>
     </section>
   );

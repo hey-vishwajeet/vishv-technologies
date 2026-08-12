@@ -47,11 +47,11 @@ export function Newsletter() {
   return (
     <div className="mx-auto max-w-[1200px] px-8 pb-[120px]">
       <RevealOnScroll>
-        <div className="card relative overflow-hidden rounded-lg p-14 text-center max-md:p-8">
-          <h3 className="font-display relative mb-2.5 text-[28px] font-semibold text-[var(--color-white)]">
+        <div className="relative overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-transparent p-10 text-center max-md:p-8">
+          <h3 className="font-display relative mb-2.5 text-[24px] font-semibold text-[var(--text-primary)]">
             Join the developer newsletter
           </h3>
-          <p className="relative mb-8 text-[15px] text-[var(--color-muted)]">
+          <p className="relative mb-8 text-[16px] text-[var(--text-secondary)]">
             One email every two weeks. Technical insights, open-source updates, and engineering deep-dives. No spam.
           </p>
 

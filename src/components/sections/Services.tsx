@@ -1,5 +1,6 @@
 import { services } from "@/config/site";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { WayfindingRow } from "@/components/ui/WayfindingRow";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 
 export function Services() {
@@ -30,6 +31,9 @@ export function Services() {
             </RevealOnScroll>
           ))}
         </div>
+      </div>
+      <div className="mt-20">
+        <WayfindingRow nextSectionName="HOW WE WORK" nextSectionLink="/#process" supportLinkName="METHODOLOGY" />
       </div>
     </section>
   );

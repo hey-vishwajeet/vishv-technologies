@@ -19,7 +19,7 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/company/vishv-technologies/",
     twitter: "https://twitter.com/vishvtechnologies",
     instagram: "https://instagram.com/vishvtechnologies",
-    discord: "https://discord.gg/9zGuecz6CK",
+    discord: "https://discord.gg/7RKBmEfqKm",
   },
   keywords: [
     "Vishv Technologies",

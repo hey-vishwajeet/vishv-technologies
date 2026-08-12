@@ -1,5 +1,6 @@
 import { approachItems } from "@/config/site";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { WayfindingRow } from "@/components/ui/WayfindingRow";
 
 export function WhyChooseUs() {
   return (
@@ -25,22 +26,22 @@ export function WhyChooseUs() {
           </RevealOnScroll>
 
           {/* ── Right: approach items in an editorial list ── */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-12 border-l border-[var(--border-subtle)] pl-8 lg:pl-12">
             {approachItems.map((item, index) => (
               <RevealOnScroll key={item.title}>
-                <article className="card rounded-lg p-7">
+                <article className="relative">
                   <div className="mb-3 flex items-baseline gap-4">
                     <span
-                      className="font-display text-xs font-semibold tracking-widest text-[var(--color-accent)]"
+                      className="absolute -left-[45px] lg:-left-[61px] top-1 font-display text-[24px] font-light text-[var(--text-tertiary)] bg-[var(--bg-primary)] py-1"
                       aria-hidden="true"
                     >
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="font-display text-base font-semibold text-[var(--color-white)]">
+                    <h3 className="font-display text-[20px] font-semibold text-[var(--text-primary)]">
                       {item.title}
                     </h3>
                   </div>
-                  <p className="pl-10 text-sm leading-relaxed text-[var(--color-muted)]">
+                  <p className="text-[16px] leading-relaxed text-[var(--text-secondary)]">
                     {item.description}
                   </p>
                 </article>
@@ -48,6 +49,9 @@ export function WhyChooseUs() {
             ))}
           </div>
         </div>
+      </div>
+      <div className="mt-20">
+        <WayfindingRow nextSectionName="SELECTED WORK" nextSectionLink="/#work" supportLinkName="PORTFOLIO" />
       </div>
     </section>
   );

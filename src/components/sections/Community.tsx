@@ -4,6 +4,7 @@ import { useState } from "react";
 import { communityItems, learningItems } from "@/config/site";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { ServiceCard } from "@/components/ui/ServiceCard";
+import { WayfindingRow } from "@/components/ui/WayfindingRow";
 import { cn } from "@/lib/utils";
 
 type TabId = "learning" | "community";
@@ -40,7 +41,7 @@ export function Community() {
 
         <RevealOnScroll className="mt-16">
           <div
-            className="mb-10 flex w-fit gap-1 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] p-1"
+            className="mb-10 flex w-fit gap-2 rounded-full bg-[var(--bg-surface)] p-1.5 border border-[var(--border-subtle)]"
             role="tablist"
             aria-label="Education and community options"
           >
@@ -53,11 +54,11 @@ export function Community() {
                 aria-selected={activeTab === tab.id}
                 aria-controls={`panel-${tab.id}`}
                 className={cn(
-                  "cursor-pointer rounded px-6 py-2.5 text-sm font-medium transition-all border-none",
+                  "cursor-pointer rounded-full px-6 py-2.5 text-[14px] font-medium transition-all border-none",
                   "font-[var(--font-display)]",
                   activeTab === tab.id
-                    ? "bg-[var(--color-accent)] text-[#060606]"
-                    : "bg-transparent text-[var(--color-muted)] hover:text-[var(--color-white)]",
+                    ? "bg-[var(--accent-muted)] text-[var(--accent)]"
+                    : "bg-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)]",
                 )}
                 onClick={() => setActiveTab(tab.id)}
               >
@@ -70,13 +71,16 @@ export function Community() {
             id={`panel-${activeTab}`}
             role="tabpanel"
             aria-labelledby={`tab-${activeTab}`}
-            className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
           >
             {items.map((item) => (
               <ServiceCard key={item.title} {...item} />
             ))}
           </div>
         </RevealOnScroll>
+      </div>
+      <div className="mt-20">
+        <WayfindingRow nextSectionName="FAQ" nextSectionLink="/#faq" supportLinkName="SUPPORT" />
       </div>
     </section>
   );

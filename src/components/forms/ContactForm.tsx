@@ -15,7 +15,7 @@ export function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const form = e.currentTarget;
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
@@ -74,7 +74,7 @@ export function ContactForm() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <label htmlFor="firstName" className="text-[13px] font-medium tracking-wide text-[var(--color-muted)]">
+          <label htmlFor="firstName" className="text-[13px] font-medium tracking-wide text-[var(--text-tertiary)]">
             First Name
           </label>
           <input
@@ -82,7 +82,7 @@ export function ContactForm() {
             name="firstName"
             type="text"
             className="form-input"
-            placeholder=""
+            placeholder="Your First Name"
             required
             autoComplete="given-name"
             aria-invalid={!!errors.firstName}
@@ -95,7 +95,7 @@ export function ContactForm() {
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="lastName" className="text-[13px] font-medium tracking-wide text-[var(--color-muted)]">
+          <label htmlFor="lastName" className="text-[13px] font-medium tracking-wide text-[var(--text-tertiary)]">
             Last Name
           </label>
           <input
@@ -103,7 +103,7 @@ export function ContactForm() {
             name="lastName"
             type="text"
             className="form-input"
-            placeholder=""
+            placeholder="Your Last Name"
             required
             autoComplete="family-name"
             aria-invalid={!!errors.lastName}
@@ -118,7 +118,7 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="email" className="text-[13px] font-medium tracking-wide text-[var(--color-muted)]">
+        <label htmlFor="email" className="text-[13px] font-medium tracking-wide text-[var(--text-tertiary)]">
           Email Address
         </label>
         <input
@@ -126,7 +126,7 @@ export function ContactForm() {
           name="email"
           type="email"
           className="form-input"
-          placeholder=""
+          placeholder="Your Email Address"
           required
           autoComplete="email"
           aria-invalid={!!errors.email}
@@ -140,7 +140,7 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="service" className="text-[13px] font-medium tracking-wide text-[var(--color-muted)]">
+        <label htmlFor="service" className="text-[13px] font-medium tracking-wide text-[var(--text-tertiary)]">
           What are you looking for?
         </label>
         <select
@@ -156,7 +156,7 @@ export function ContactForm() {
             Select a service...
           </option>
           {contactServiceOptions.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-[var(--color-surface)]">
+            <option key={opt.value} value={opt.value} className="bg-[var(--bg-surface)]">
               {opt.label}
             </option>
           ))}
@@ -169,7 +169,7 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="message" className="text-[13px] font-medium tracking-wide text-[var(--color-muted)]">
+        <label htmlFor="message" className="text-[13px] font-medium tracking-wide text-[var(--text-tertiary)]">
           Tell us about your project
         </label>
         <textarea

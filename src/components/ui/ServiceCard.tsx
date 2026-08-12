@@ -81,10 +81,10 @@ export function ServiceCard({ icon, title, description }: ServiceCardProps) {
       <div className="icon-box mb-5" aria-hidden="true">
         {iconEl ?? null}
       </div>
-      <h3 className="font-display mb-2.5 text-lg font-semibold text-[var(--color-white)]">
+      <h3 className="font-display mb-2.5 text-[20px] font-semibold text-[var(--text-primary)]">
         {title}
       </h3>
-      <p className="text-sm leading-relaxed text-[var(--color-muted)]">{description}</p>
+      <p className="text-[16px] leading-relaxed text-[var(--text-secondary)]">{description}</p>
     </article>
   );
 }

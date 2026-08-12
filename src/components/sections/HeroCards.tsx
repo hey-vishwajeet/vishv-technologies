@@ -37,8 +37,9 @@ export function HeroCards() {
 
     /* ── Scene ── */
     const scene = new THREE.Scene();
+    // Initial positions (will be updated in resize)
     const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(1.5, 0, 6); // offset camera to far right
+    camera.position.set(1.5, 0, 6);
     camera.lookAt(1.5, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({
@@ -53,102 +54,76 @@ export function HeroCards() {
     renderer.toneMappingExposure = 1.0;
     container.appendChild(renderer.domElement);
 
-    /* ── Rounded rectangle shape ── */
-    function createRoundedRectShape(w: number, h: number, r: number) {
-      const shape = new THREE.Shape();
-      shape.moveTo(-w / 2, -h / 2 + r);
-      shape.lineTo(-w / 2, h / 2 - r);
-      shape.quadraticCurveTo(-w / 2, h / 2, -w / 2 + r, h / 2);
-      shape.lineTo(w / 2 - r, h / 2);
-      shape.quadraticCurveTo(w / 2, h / 2, w / 2, h / 2 - r);
-      shape.lineTo(w / 2, -h / 2 + r);
-      shape.quadraticCurveTo(w / 2, -h / 2, w / 2 - r, -h / 2);
-      shape.lineTo(-w / 2 + r, -h / 2);
-      shape.quadraticCurveTo(-w / 2, -h / 2, -w / 2, -h / 2 + r);
-      return shape;
-    }
-
-    /* ── Create floating cards — positioned to the RIGHT ── */
+    /* ── Single Prismatic Graphic ── */
     const group = new THREE.Group();
-    group.position.set(4.5, 0, 0); // shift entire group to far right
+    // Position top-right
+    group.position.set(4, 2, -2);
     scene.add(group);
 
-    const cardData = [
-      { y: 0, z: 0, scale: 1.0, rotZ: 0 },
-      { y: 3.2, z: -1.5, scale: 0.7, rotZ: 0.15 },
-      { y: -3.2, z: -1.5, scale: 0.7, rotZ: -0.15 },
-      { y: 5.8, z: -3.0, scale: 0.45, rotZ: 0.25 },
-      { y: -5.8, z: -3.0, scale: 0.45, rotZ: -0.25 },
-    ];
+    // Abstract faceted mesh
+    const geometry = new THREE.IcosahedronGeometry(2.5, 0); // low poly for facets
 
-    const cards: THREE.Mesh[] = [];
-
-    cardData.forEach((data) => {
-      const shape = createRoundedRectShape(
-        2.2 * data.scale,
-        2.2 * data.scale,
-        0.35 * data.scale
-      );
-      const geometry = new THREE.ExtrudeGeometry(shape, {
-        depth: 0.06,
-        bevelEnabled: true,
-        bevelThickness: 0.02,
-        bevelSize: 0.02,
-        bevelSegments: 3,
-      });
-
-      const material = new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        roughness: 0.15,
-        metalness: 0.05,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.05,
-        transparent: true,
-        opacity: 0.88,
-        side: THREE.DoubleSide,
-      });
-
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(0, data.y, data.z);
-      mesh.rotation.z = data.rotZ;
-      group.add(mesh);
-      cards.push(mesh);
+    const material = new THREE.MeshPhysicalMaterial({
+      color: 0xffffff,
+      roughness: 0.1,
+      metalness: 0.1,
+      transmission: 0.9, // glass-like
+      thickness: 1.5,
+      ior: 1.5,
+      iridescence: 1.0,
+      iridescenceIOR: 1.3,
+      clearcoat: 1.0,
+      side: THREE.DoubleSide,
     });
 
-    /* ── Edge glow on main card ── */
-    const edgeShape = createRoundedRectShape(2.2, 2.2, 0.35);
-    const edgePoints = edgeShape.getPoints(64);
-    const edgeGeometry = new THREE.BufferGeometry().setFromPoints(
-      edgePoints.map((p) => new THREE.Vector3(p.x, p.y, 0.07))
-    );
-    const edgeMaterial = new THREE.LineBasicMaterial({
-      color: 0x00b4d8,
+    const mesh = new THREE.Mesh(geometry, material);
+    
+    // Add wireframe overlay for tech feel
+    const wireMaterial = new THREE.LineBasicMaterial({
+      color: 0x3b5bff, // --accent-blue
       transparent: true,
       opacity: 0.3,
     });
-    const edgeLine = new THREE.LineLoop(edgeGeometry, edgeMaterial);
-    cards[0].add(edgeLine);
+    const wireframe = new THREE.LineSegments(
+      new THREE.WireframeGeometry(geometry),
+      wireMaterial
+    );
+    mesh.add(wireframe);
+    
+    group.add(mesh);
 
     /* ── Lighting ── */
-    const ambient = new THREE.AmbientLight(0x222233, 0.8);
+    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambient);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
-    keyLight.position.set(4, 3, 5);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    keyLight.position.set(5, 5, 5);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x00b4d8, 0.6);
-    rimLight.position.set(-1, -1, 3);
-    scene.add(rimLight);
+    const fillLight1 = new THREE.DirectionalLight(0x3b5bff, 3.0); // blue
+    fillLight1.position.set(-5, -2, 2);
+    scene.add(fillLight1);
 
-    const backLight = new THREE.DirectionalLight(0x0060a0, 0.4);
-    backLight.position.set(2, 0, -5);
-    scene.add(backLight);
+    const fillLight2 = new THREE.DirectionalLight(0xff5a36, 2.0); // orange
+    fillLight2.position.set(0, 5, -5);
+    scene.add(fillLight2);
 
     /* ── Resize ── */
     function resize() {
       if (!container) return;
       const { width, height } = container.getBoundingClientRect();
+      
+      // Responsive positioning
+      if (width < 768) {
+        // Mobile view: hide or push it back
+        camera.position.set(0, 0, 15);
+        group.position.set(0, 3, -5);
+      } else {
+        // Desktop view: top right
+        camera.position.set(0, 0, 8);
+        group.position.set(4, 2, -2);
+      }
+      
       renderer.setSize(width, height);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
@@ -176,16 +151,11 @@ export function HeroCards() {
         // Slow auto-rotation
         group.rotation.y += 0.001;
 
-        // Float cards with staggered sine wave
-        cards.forEach((card, i) => {
-          const offset = i * 0.8;
-          card.position.x = Math.sin(elapsed * 0.3 + offset) * 0.15;
-          card.rotation.z =
-            cardData[i].rotZ + Math.sin(elapsed * 0.25 + offset) * 0.03;
-        });
-
-        // Pulse edge glow
-        edgeMaterial.opacity = 0.2 + Math.sin(elapsed * 0.8) * 0.15;
+        // Float and rotate single object
+        group.position.y = 2 + Math.sin(elapsed * 0.5) * 0.3;
+        
+        // Pulse wireframe
+        wireMaterial.opacity = 0.15 + Math.sin(elapsed * 1.2) * 0.1;
       }
 
       renderer.render(scene, camera);
@@ -197,12 +167,10 @@ export function HeroCards() {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
-      cards.forEach((card) => {
-        card.geometry.dispose();
-        (card.material as THREE.Material).dispose();
-      });
-      edgeGeometry.dispose();
-      edgeMaterial.dispose();
+      geometry.dispose();
+      material.dispose();
+      wireMaterial.dispose();
+      wireframe.geometry.dispose();
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);

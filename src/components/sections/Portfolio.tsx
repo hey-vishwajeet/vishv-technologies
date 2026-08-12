@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { WayfindingRow } from "@/components/ui/WayfindingRow";
 import { projects } from "@/config/site";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 
@@ -22,16 +24,12 @@ export function Portfolio() {
           </p>
         </RevealOnScroll>
 
-        {/* ── Staggered grid — varies across breakpoints ── */}
-        <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2">
-          {projects.map((project, index) => {
-            /* Alternate large/small cards for visual rhythm */
-            const isLarge = index % 3 === 0;
-
+        {/* ── Consistent 2-column grid ── */}
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {projects.map((project) => {
             return (
               <RevealOnScroll
                 key={project.title}
-                className={isLarge ? "md:col-span-2 lg:col-span-1" : ""}
               >
                 <a
                   href={project.link}
@@ -41,7 +39,7 @@ export function Portfolio() {
                   aria-label={`View ${project.title} project`}
                 >
                   <article
-                    className="card relative flex min-h-[340px] flex-col justify-end overflow-hidden rounded-lg"
+                    className="card relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-lg border border-[var(--border-subtle)]"
                   >
                     {/* ── Project image ── */}
                     {project.image && (
@@ -51,25 +49,30 @@ export function Portfolio() {
                         aria-hidden="true"
                       />
                     )}
+                    {/* Subtle dark overlay for readability */}
+                    <div
+                      className="absolute inset-0 bg-[var(--bg-primary)] opacity-20 transition-opacity duration-300 group-hover:opacity-10"
+                      aria-hidden="true"
+                    />
                     {/* ── Gradient overlay for text readability ── */}
                     <div
                       className="absolute inset-0"
                       aria-hidden="true"
                       style={{
                         background:
-                          "linear-gradient(to top, rgba(6,6,6,0.95) 0%, rgba(6,6,6,0.5) 40%, rgba(6,6,6,0.15) 100%)",
+                          "linear-gradient(to top, var(--bg-surface) 0%, transparent 60%)",
                       }}
                     />
 
                     {/* ── Content ── */}
                     <div className="relative z-10 p-7">
-                      <h3 className="font-display mb-2 text-xl font-semibold text-[var(--color-white)]">
+                      <h3 className="font-display mb-2 text-[20px] font-semibold text-[var(--text-primary)]">
                         {project.title}
                       </h3>
-                      <p className="mb-4 max-w-[400px] text-sm leading-relaxed text-[var(--color-muted)]">
+                      <p className="mb-4 max-w-[400px] text-[15px] leading-relaxed text-[var(--text-secondary)]">
                         {project.description}
                       </p>
-                      <span className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-accent)] transition-colors group-hover:brightness-125">
+                      <span className="inline-flex items-center gap-2 text-[14px] font-medium text-[var(--accent)] transition-colors group-hover:underline">
                         View on GitHub
                         <svg
                           width="14"
@@ -94,6 +97,9 @@ export function Portfolio() {
             );
           })}
         </div>
+      </div>
+      <div className="mt-20">
+        <WayfindingRow nextSectionName="TECH STACK" nextSectionLink="/#stack" supportLinkName="STACK" />
       </div>
     </section>
   );
