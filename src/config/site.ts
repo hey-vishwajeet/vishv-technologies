@@ -1,10 +1,12 @@
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.vishvtechnologies.app").replace(/\/+$/, "");
+
 export const siteConfig = {
   name: "Vishv Technologies",
   shortName: "Vishv Technologies",
   tagline: "Software. Education. Community.",
   description:
     "Vishv Technologies builds production software, runs career-focused developer education, and maintains an active open-source community from Satara, India.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.vishvtechnologies.app",
+  url: siteUrl,
   email: "vishvtechnologies.info@gmail.com",
   phone: "+91 93092 35319",
   address: {

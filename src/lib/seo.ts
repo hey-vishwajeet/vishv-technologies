@@ -17,8 +17,9 @@ export function createMetadata({
   keywords = [...siteConfig.keywords],
 }: PageSeoProps = {}): Metadata {
   const pageTitle = title ? `${title} | ${siteConfig.name}` : `${siteConfig.name} — ${siteConfig.tagline}`;
-  const normalizedPath = path === "/" ? "/" : path;
+  const normalizedPath = path === "/" ? "/" : path.startsWith("/") ? path : `/${path}`;
   const url = new URL(normalizedPath || "/", siteConfig.url).toString();
+  const canonicalUrl = normalizedPath === "/" ? siteConfig.url : url;
   const ogImageUrl = new URL("/og-image.svg", siteConfig.url).toString();
 
   return {
@@ -38,12 +39,12 @@ export function createMetadata({
       telephone: false,
     },
     alternates: {
-      canonical: url,
+      canonical: canonicalUrl,
     },
     openGraph: {
       type: "website",
       locale: "en_US",
-      url,
+      url: canonicalUrl,
       siteName: siteConfig.name,
       title: pageTitle,
       description,
