@@ -1,5 +1,21 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/Hero";
+import { createMetadata } from "@/lib/seo";
+import { siteConfig } from "@/config/site";
+
+export const metadata = createMetadata({
+  title: "Software Development & Tech Education",
+  description:
+    "Vishv Technologies builds software products, offers career-focused developer education, and grows a community of builders in Satara, India.",
+  path: "/",
+  keywords: [
+    ...siteConfig.keywords,
+    "software company in India",
+    "web development agency",
+    "Full-stack developer courses",
+    "tech community",
+  ],
+});
 
 const About = dynamic(() => import("@/components/sections/About").then((m) => m.About));
 const Services = dynamic(() => import("@/components/sections/Services").then((m) => m.Services));

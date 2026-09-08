@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "Software. Education. Community.",
   description:
     "Vishv Technologies builds production software, runs career-focused developer education, and maintains an active open-source community from Satara, India.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://vishvtech.io",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.vishvtechnologies.app",
   email: "vishvtechnologies.info@gmail.com",
   phone: "+91 93092 35319",
   address: {

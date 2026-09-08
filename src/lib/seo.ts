@@ -17,7 +17,9 @@ export function createMetadata({
   keywords = [...siteConfig.keywords],
 }: PageSeoProps = {}): Metadata {
   const pageTitle = title ? `${title} | ${siteConfig.name}` : `${siteConfig.name} — ${siteConfig.tagline}`;
-  const url = `${siteConfig.url}${path}`;
+  const normalizedPath = path === "/" ? "/" : path;
+  const url = new URL(normalizedPath || "/", siteConfig.url).toString();
+  const ogImageUrl = new URL("/og-image.svg", siteConfig.url).toString();
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -47,7 +49,7 @@ export function createMetadata({
       description,
       images: [
         {
-          url: "/og-image.svg",
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: `${siteConfig.name} — ${siteConfig.tagline}`,
@@ -58,7 +60,7 @@ export function createMetadata({
       card: "summary_large_image",
       title: pageTitle,
       description,
-      images: ["/og-image.svg"],
+      images: [ogImageUrl],
       creator: "@vishvtechnologies",
     },
     robots: noIndex
